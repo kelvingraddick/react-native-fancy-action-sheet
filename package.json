@@ -1,0 +1,25 @@
+{
+  "name": "react-native-fancy-action-sheet",
+  "version": "0.0.1",
+  "description": "A better looking, more functional action sheet for React Native apps",
+  "main": "lib/index.js",
+  "files": ["lib", "assets"],
+  "scripts": {
+    "build": "babel src --out-dir lib"
+  },
+  "keywords": [
+    "react native",
+    "action sheet"
+  ],
+  "author": "Kelvin Graddick",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.68.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3"
+  }
+}
