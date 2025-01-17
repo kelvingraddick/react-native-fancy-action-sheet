@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import { Image, Modal, Pressable, View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
-const FancyActionSheet = ({ isVisible, hide, settings }) => {
+const FancyActionSheet = ({ isVisible, settings, hide, clearSettings }) => {
   const {
     title = '',
     message = '',
@@ -19,7 +19,7 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
     destructiveOptionId = null,
     onOptionPress = () => {},
   } = settings;
-  const onClosePress = async () => { await onOptionPress({}); hide(); };
+  const onClosePress = async () => { hide(); await onOptionPress({}); clearSettings(); };
   return (
     <Modal
       transparent={true}
@@ -35,7 +35,7 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
             {options.map((option) => {
               const isDestructiveOption = destructiveOptionId == option.id;
               return (
-                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { await onOptionPress(option); hide(); }} accessibilityLabel={option.name}>
+                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { hide(); await onOptionPress(option); clearSettings(); }} accessibilityLabel={option.name}>
                   <Text style={[(isDestructiveOption ? styles.destructiveButtonText : styles.optionButtonText), { ...(isDestructiveOption ? destructiveOptionButtonTextStyle : optionButtonTextStyle) }]}>{option.name}</Text>
                 </Pressable>);
             })}
@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
   },
   titleText: {
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 7.5,
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
     color:'#353535',
   },
   messageText: {
-    marginBottom: 5,
+    marginBottom: 7.5,
     fontSize: 15,
     textAlign: 'center',
     color:'#353535',
@@ -158,14 +158,17 @@ export const FancyActionSheetProvider = ({ children }) => {
   };
 
   const hide = () => {
-    setSettings({});
     setIsVisible(false);
+  };
+
+  const clearSettings = () => {
+    setSettings({});
   };
 
   return (
     <FancyActionSheetContext.Provider value={{ showFancyActionSheet }}>
       {children}
-      <FancyActionSheet isVisible={isVisible} hide={hide} settings={settings} />
+      <FancyActionSheet isVisible={isVisible} settings={settings} hide={hide} clearSettings={clearSettings}  />
     </FancyActionSheetContext.Provider>
   );
 };
