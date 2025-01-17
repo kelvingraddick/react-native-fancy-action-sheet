@@ -8,7 +8,14 @@
 
 ## Introduction
 
-**Fancy Action Sheet** is a customizable and flexible action sheet component for React Native. This component is easy to integrate, highly customizable, and comes with support for both standard and destructive actions.
+**Fancy Action Sheet** is a customizable, flexible (and better looking) action sheet component for React Native. This component is easy to integrate, highly customizable, and comes with support for both standard and destructive actions.
+
+<table>
+    <tr>
+        <td><img src="example-1-screenshot.png" /></td>
+        <td><img src="example-2-screenshot.png" /></td>
+    </tr>
+</table>
 
 ## Installation
 
