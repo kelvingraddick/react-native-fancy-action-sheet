@@ -35,6 +35,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
+      - name: Verify files
+        run: ls -R
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
