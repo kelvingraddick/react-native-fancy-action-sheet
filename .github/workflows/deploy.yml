@@ -35,6 +35,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
+      - name: Move lib folder
+        run: |
+          mkdir -p lib
+          mv lib/* ./lib
       - name: Verify files
         run: ls -R
       - run: npm publish
