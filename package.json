@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "A better looking, more functional action sheet for React Native apps",
   "main": "lib/index.js",
-  "files": ["lib", "assets", "example-1-screenshot.png", "example-2-screenshot.png"],
+  "files": ["lib", "assets"],
   "scripts": {
     "build": "babel src --out-dir lib"
   },

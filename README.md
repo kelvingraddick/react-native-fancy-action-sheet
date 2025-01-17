@@ -12,8 +12,8 @@
 
 <table>
     <tr>
-        <td><img src="example-1-screenshot.png" /></td>
-        <td><img src="example-2-screenshot.png" /></td>
+        <td><img src="https://github.com/kelvingraddick/react-native-fancy-action-sheet/raw/main/example-1-screenshot.png" /></td>
+        <td><img src="https://github.com/kelvingraddick/react-native-fancy-action-sheet/raw/main/example-2-screenshot.png" /></td>
     </tr>
 </table>
 
