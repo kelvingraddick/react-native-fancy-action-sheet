@@ -19,13 +19,12 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
     destructiveOptionId = null,
     onOptionPress = () => {},
   } = settings;
-  const onClosePress = async () => { hide(); await onOptionPress({}); };
+  const onClosePress = async () => { await onOptionPress({}); hide(); };
   return (
     <Modal
       transparent={true}
       visible={isVisible}
       animationType="fade"
-      onRequestClose={onClosePress}
     >
       <View style={[styles.overlay, { ...overlayStyle }]}>
         <TouchableWithoutFeedback onPress={onClosePress}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
@@ -36,7 +35,7 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
             {options.map((option) => {
               const isDestructiveOption = destructiveOptionId == option.id;
               return (
-                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { hide(); await onOptionPress(option); }} accessibilityLabel={option.name}>
+                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { await onOptionPress(option); hide(); }} accessibilityLabel={option.name}>
                   <Text style={[(isDestructiveOption ? styles.destructiveButtonText : styles.optionButtonText), { ...(isDestructiveOption ? destructiveOptionButtonTextStyle : optionButtonTextStyle) }]}>{option.name}</Text>
                 </Pressable>);
             })}
