@@ -19,15 +19,16 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
     destructiveOptionId = null,
     onOptionPress = () => {},
   } = settings;
+  const onClosePress = async () => { hide(); await onOptionPress({}); };
   return (
     <Modal
       transparent={true}
       visible={isVisible}
       animationType="fade"
-      onRequestClose={hide}
+      onRequestClose={onClosePress}
     >
       <View style={[styles.overlay, { ...overlayStyle }]}>
-        <TouchableWithoutFeedback onPress={hide}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={onClosePress}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
         <View style={[styles.sheetView, { ...sheetStyle }]}>
           { title && <Text style={[styles.titleText, { ...titleTextStyle }]}>{title}</Text> }
           { message && <Text style={[styles.messageText, { ...messageTextStyle }]}>{message}</Text> }
@@ -35,12 +36,12 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
             {options.map((option) => {
               const isDestructiveOption = destructiveOptionId == option.id;
               return (
-                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={() => { onOptionPress(option); hide(); }} accessibilityLabel={option.name}>
+                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { hide(); await onOptionPress(option); }} accessibilityLabel={option.name}>
                   <Text style={[(isDestructiveOption ? styles.destructiveButtonText : styles.optionButtonText), { ...(isDestructiveOption ? destructiveOptionButtonTextStyle : optionButtonTextStyle) }]}>{option.name}</Text>
                 </Pressable>);
             })}
           </View>
-          <TouchableOpacity style={[styles.closeButton, { ...closeButtonStyle }]} onPress={hide} accessibilityLabel='Close action menu'>
+          <TouchableOpacity style={[styles.closeButton, { ...closeButtonStyle }]} onPress={onClosePress} accessibilityLabel='Close action menu'>
             <Image source={require('../assets/images/x.png')} style={[styles.closeButtonIcon, { ...closeButtonIconStyle }]} tintColor={closeButtonIconStyle?.color ?? '#353535'} />
           </TouchableOpacity>
         </View>
