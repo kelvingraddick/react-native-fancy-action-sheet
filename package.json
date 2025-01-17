@@ -1,6 +1,6 @@
 {
   "name": "react-native-fancy-action-sheet",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A better looking, more functional action sheet for React Native apps",
   "main": "lib/index.js",
   "files": ["lib", "assets"],
