@@ -79,6 +79,143 @@ const HomeScreen = () => {
 export default App;
 ```
 
+## Configuration
+
+<table>
+  <thead>
+    <tr>
+      <th>Setting</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>title</code></td>
+      <td><code>string</code></td>
+      <td>The title displayed at the top of the action sheet.</td>
+      <td><code>''</code></td>
+    </tr>
+    <tr>
+      <td><code>message</code></td>
+      <td><code>string</code></td>
+      <td>An optional message displayed below the title.</td>
+      <td><code>''</code></td>
+    </tr>
+    <tr>
+      <td><code>options</code></td>
+      <td><code>Array&lt;Object&gt;</code></td>
+      <td>A list of options (buttons) to display, each having <code>id</code> and <code>name</code> properties.</td>
+      <td><code>[]</code></td>
+    </tr>
+    <tr>
+      <td><code>options[].id</code></td>
+      <td><code>string</code> or <code>number</code></td>
+      <td>The unique identifier of the option.</td>
+      <td><code>''</code></td>
+    </tr>
+    <tr>
+      <td><code>options[].name</code></td>
+      <td><code>string</code></td>
+      <td>The name/label of the option.</td>
+      <td><code>''</code></td>
+    </tr>
+    <tr>
+      <td><code>onOptionPress</code></td>
+      <td><code>function</code></td>
+      <td>Callback function triggered when an option is pressed, receiving the option object.</td>
+      <td><code>() => {}</code></td>
+    </tr>
+    <tr>
+      <td><code>destructiveOptionId</code></td>
+      <td><code>string</code> or <code>number</code></td>
+      <td>The ID of the option to be displayed as a destructive (red) button.</td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <td><code>overlayStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
+      <td>Custom style for the modal's overlay.</td>
+      <td>
+        <pre>{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>sheetStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
+      <td>Custom style for the action sheet container.</td>
+      <td>
+        <pre>{ backgroundColor: '#f5f5f5', borderTopLeftRadius: 25, borderTopRightRadius: 25, padding: 25 }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>titleTextStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/text-style-props" target="_blank">Text Style Props</a></td>
+      <td>Custom style for the title text.</td>
+      <td>
+        <pre>{ marginTop: 5, marginBottom: 5, fontSize: 17, fontWeight: 'bold', textAlign: 'center', color: '#353535' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>messageTextStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/text-style-props" target="_blank">Text Style Props</a></td>
+      <td>Custom style for the message text.</td>
+      <td>
+        <pre>{ marginBottom: 5, fontSize: 15, textAlign: 'center', color: '#353535' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>closeButtonStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
+      <td>Custom style for the close button container.</td>
+      <td>
+        <pre>{ height: 40, width: 40, marginBottom: 15, borderRadius: 20, justifyContent: 'center', alignContent: 'center', alignSelf: 'center', backgroundColor: '#dfdfdf' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>closeButtonIconStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/image-style-props" target="_blank">Image Style Props</a></td>
+      <td>Custom style for the close button icon.</td>
+      <td>
+        <pre>{ height: 15, width: 15, alignSelf: 'center' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>optionButtonStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
+      <td>Custom style for the non-destructive option buttons.</td>
+      <td>
+        <pre>{ borderRadius: 10, padding: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>optionButtonTextStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/text-style-props" target="_blank">Text Style Props</a></td>
+      <td>Custom style for the text of non-destructive buttons.</td>
+      <td>
+        <pre>{ alignSelf: 'center', color: '#007AFF', fontSize: 17, fontWeight: 'bold' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>destructiveOptionButtonStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
+      <td>Custom style for destructive option buttons.</td>
+      <td>
+        <pre>{ borderRadius: 10, padding: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td><code>destructiveOptionButtonTextStyle</code></td>
+      <td><code>object</code> <a href="https://reactnative.dev/docs/text-style-props" target="_blank">Text Style Props</a></td>
+      <td>Custom style for the text of destructive buttons.</td>
+      <td>
+        <pre>{ alignSelf: 'center', color: '#FF3A2D', fontSize: 17 }</pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## Features
 
 - Fully customizable styles for action sheet, buttons, and overlays.
@@ -114,10 +251,10 @@ Let’s connect! You can simply support my work by connecting on these platforms
 
 ..or if you'd like to support monetarily:
 
-[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor%20Me-red?logo=github&logoColor=white)](https://github.com/sponsors/kgcodes)<br />
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal&logoColor=white)](https://paypal.me/kgcodes)<br />
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor%20Me-red?logo=github&logoColor=white)](https://github.com/sponsors/kelvingraddick)<br />
+[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal&logoColor=white)](https://www.paypal.com/biz/profile/100kelvins)<br />
 [![Cash App](https://img.shields.io/badge/Cash%20App-%24kgcodes-brightgreen?logo=cashapp&logoColor=white)](https://cash.app/$kgcodes)<br />
-[![Venmo](https://img.shields.io/badge/Venmo-%40kgcodes-007aff?logo=venmo&logoColor=white)](https://venmo.com/kgcodes)<br />
+[![Venmo](https://img.shields.io/badge/Venmo-%40kgcodes-007aff?logo=venmo&logoColor=white)](https://venmo.com/u/kelvingraddick)<br />
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20Me%20a%20Coffee-orange?logo=kofi&logoColor=white)](https://ko-fi.com/kgcodes)
 
 Your support helps me dedicate more time to building useful open-source tools like this one. ❤️
