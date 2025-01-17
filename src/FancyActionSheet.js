@@ -29,7 +29,7 @@ const FancyActionSheet = ({ isVisible, hide, settings }) => {
       <View style={[styles.overlay, { ...overlayStyle }]}>
         <TouchableWithoutFeedback onPress={hide}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
         <View style={[styles.sheetView, { ...sheetStyle }]}>
-          <Text style={[styles.titleText, { ...titleTextStyle }]}>{title}</Text>
+          { title && <Text style={[styles.titleText, { ...titleTextStyle }]}>{title}</Text> }
           { message && <Text style={[styles.messageText, { ...messageTextStyle }]}>{message}</Text> }
           <View style={[styles.optionButtonsView]}>
             {options.map((option) => {
