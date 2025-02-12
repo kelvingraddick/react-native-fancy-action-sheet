@@ -1,6 +1,6 @@
 {
   "name": "react-native-fancy-action-sheet",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "description": "A better looking, more functional action sheet for React Native apps",
   "main": "lib/index.js",
   "files": ["lib", "assets"],
@@ -13,6 +13,11 @@
   ],
   "author": "Kelvin Graddick",
   "license": "MIT",
+  "homepage": "https://github.com/kelvingraddick/react-native-fancy-action-sheet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kelvingraddick/react-native-fancy-action-sheet"
+  },
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-native": ">=0.68.0"
