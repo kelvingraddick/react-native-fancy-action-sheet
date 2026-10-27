@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: npm-release
@@ -14,18 +14,21 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org/
-          cache: npm
+          package-manager-cache: false
+      - name: Install an npm CLI with trusted publishing support
+        run: npm install --global npm@11
       - run: npm ci
       # prepare builds lib/; prepublishOnly runs the build and tests.
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Create GitHub release for the published commit
         env:
           GH_TOKEN: ${{ github.token }}

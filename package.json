@@ -19,7 +19,7 @@
   "homepage": "https://github.com/kelvingraddick/react-native-fancy-action-sheet",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kelvingraddick/react-native-fancy-action-sheet"
+    "url": "git+https://github.com/kelvingraddick/react-native-fancy-action-sheet.git"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

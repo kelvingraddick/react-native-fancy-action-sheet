@@ -9,3 +9,4 @@
 - Handle Android Back through the same dismissal callback as Close and the backdrop.
 - Correct the existing `FancyActionSheet` component export.
 - Build the distributable before packing or installing from GitHub, and run behavioral tests before publishing.
+- Publish from GitHub Actions through npm Trusted Publishing with OIDC instead of a stored npm token.
