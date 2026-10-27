@@ -246,7 +246,7 @@ export default App;
 
 Use Node.js 22, run `npm ci`, then `npm test`. The tests exercise the built package's exports, selection and dismissal callbacks, modal safe areas, supported orientations, and scroll/close structure. Native layout still needs simulator or device checks across compact, expanded, rotated, and short windows.
 
-`npm pack` builds `lib/` automatically. The manual **Deploy new release** GitHub Actions workflow publishes the tested package from `main` using the existing npm secret, then creates a GitHub release at that same commit. Bump the version and merge passing changes before running it.
+`npm pack` builds `lib/` automatically. Installing from a GitHub commit also builds the distributable through `prepare`, so a consumer does not need checked-in build output. The manual **Deploy new release** GitHub Actions workflow publishes the tested package from `main` using the existing npm secret, then creates a GitHub release at that same commit. Bump the version and merge passing changes before running it.
 
 ## Contributing
 
