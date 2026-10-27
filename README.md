@@ -246,7 +246,9 @@ export default App;
 
 Use Node.js 22, run `npm ci`, then `npm test`. The tests exercise the built package's exports, selection and dismissal callbacks, modal safe areas, supported orientations, and scroll/close structure. Native layout still needs simulator or device checks across compact, expanded, rotated, and short windows.
 
-`npm pack` builds `lib/` automatically. Installing from a GitHub commit also builds the distributable through `prepare`, so a consumer does not need checked-in build output. The manual **Deploy new release** GitHub Actions workflow publishes the tested package from `main` using the existing npm secret, then creates a GitHub release at that same commit. Bump the version and merge passing changes before running it.
+`npm pack` builds `lib/` automatically. Installing from a GitHub commit also builds the distributable through `prepare`, so a consumer does not need checked-in build output. The manual **Deploy new release** GitHub Actions workflow publishes the tested package from `main` through [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/), then creates a GitHub release at that same commit. Bump the version and merge passing changes before running it.
+
+The release job uses a GitHub-hosted runner, Node.js 24, npm 11, and job-scoped `id-token: write` permission. It does not use `NPM_TOKEN` or a dependency cache. Before the first release, configure this package's trusted publisher on npmjs.com with GitHub user `kelvingraddick`, repository `react-native-fancy-action-sheet`, workflow filename `deploy.yml`, no environment name, and direct `npm publish` permission. The workflow must match these values exactly. After confirming a successful trusted publish, remove the unused repository npm secret and revoke its token if it is no longer used elsewhere.
 
 ## Contributing
 
