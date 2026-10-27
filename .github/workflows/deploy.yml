@@ -22,7 +22,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
           cache: npm
       - run: npm ci
-      # prepublishOnly runs the build and tests; prepack prepares lib/.
+      # prepare builds lib/; prepublishOnly runs the build and tests.
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}

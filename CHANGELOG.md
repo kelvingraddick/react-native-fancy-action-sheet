@@ -8,4 +8,4 @@
 - Scroll long menus independently of the close control, with compact options and a separated, nonshrinking 44-point close button.
 - Handle Android Back through the same dismissal callback as Close and the backdrop.
 - Correct the existing `FancyActionSheet` component export.
-- Build the distributable before packing and run behavioral tests before publishing.
+- Build the distributable before packing or installing from GitHub, and run behavioral tests before publishing.

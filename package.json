@@ -7,7 +7,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "test": "npm run build && node --test",
-    "prepack": "npm run build",
+    "prepare": "npm run build",
     "prepublishOnly": "npm test"
   },
   "keywords": [
