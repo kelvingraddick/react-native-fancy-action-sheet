@@ -22,11 +22,11 @@
 Install the package via **NPM**:
 
 ```bash
-npm install fancy-action-sheet
+npm install react-native-fancy-action-sheet react-native-safe-area-context
 ```
 ..or via **Yarn**:
 ```bash
-yarn add fancy-action-sheet
+yarn add react-native-fancy-action-sheet react-native-safe-area-context
 ```
 
 ## Dependencies
@@ -37,14 +37,22 @@ This package was created to be used exclusively with a [React Native](https://re
 Specifically, this package requires the following **peer dependencies** to be installed in your project:
 
 `React: >=17.0.0`<br />
-`React Native: >=0.68.0`
+`React Native: >=0.68.0`<br />
+`react-native-safe-area-context: >=4.10.0`
 
-Since this package is used within a React Native project these depencencies should already be installed.<br />
-⚠️ Only install them manually **if they are NOT already installed** for some reason:
+React and React Native come from your app. The installation command above also installs the safe-area peer. Choose a safe-area-context version compatible with your React Native version, then rebuild the native app.
+
+## iPhone Duo and resizable layouts
+
+Version 2 adds `react-native-safe-area-context` as a required native peer dependency. Existing 1.x users should install a compatible version and run CocoaPods for iOS before rebuilding:
 
 ```bash
-npm install react react-native
+cd ios && pod install
 ```
+
+The sheet creates a safe-area provider inside its modal, so each edge updates when the window resizes, rotates, or moves between iPhone Duo displays. All four orientations are supported. Long menus scroll while Close stays outside the scrolling area, separated from the final action. The default option and close controls have a minimum 44-point size.
+
+Your host app must also support its intended interface orientations and use a current iOS SDK for the full iPhone Duo display experience. This package does not change the app's native build settings.
 
 ## Usage
 
@@ -55,7 +63,7 @@ Wrap your app in the `FancyActionSheetProvider` and use the `useFancyActionSheet
 ```JavaScript
 import React from 'react';
 import { Button } from 'react-native';
-import { FancyActionSheetProvider, useFancyActionSheet } from 'fancy-action-sheet';
+import { FancyActionSheetProvider, useFancyActionSheet } from 'react-native-fancy-action-sheet';
 
 const App = () => (
   <FancyActionSheetProvider>
@@ -177,7 +185,7 @@ export default App;
       <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
       <td>Custom style for the close button container.</td>
       <td>
-        <pre>{ height: 40, width: 40, marginBottom: 15, borderRadius: 20, justifyContent: 'center', alignContent: 'center', alignSelf: 'center', backgroundColor: '#dfdfdf' }</pre>
+        <pre>{ height: 44, width: 44, flexShrink: 0, borderRadius: 22, justifyContent: 'center', alignContent: 'center', alignSelf: 'center', backgroundColor: '#dfdfdf' }</pre>
       </td>
     </tr>
     <tr>
@@ -193,7 +201,7 @@ export default App;
       <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
       <td>Custom style for the non-destructive option buttons.</td>
       <td>
-        <pre>{ borderRadius: 10, padding: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
+        <pre>{ borderRadius: 10, minHeight: 44, paddingVertical: 12, paddingHorizontal: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
       </td>
     </tr>
     <tr>
@@ -209,7 +217,7 @@ export default App;
       <td><code>object</code> <a href="https://reactnative.dev/docs/view-style-props" target="_blank">View Style Props</a></td>
       <td>Custom style for destructive option buttons.</td>
       <td>
-        <pre>{ borderRadius: 10, padding: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
+        <pre>{ borderRadius: 10, minHeight: 44, paddingVertical: 12, paddingHorizontal: 15, marginBottom: 10, justifyContent: 'center', alignContent: 'center', backgroundColor: '#dfdfdf' }</pre>
       </td>
     </tr>
     <tr>
@@ -233,6 +241,12 @@ export default App;
 ## Reference links
 
 - [React Native](https://reactnative.dev)
+
+## Development and release
+
+Use Node.js 22, run `npm ci`, then `npm test`. The tests exercise the built package's exports, selection and dismissal callbacks, modal safe areas, supported orientations, and scroll/close structure. Native layout still needs simulator or device checks across compact, expanded, rotated, and short windows.
+
+`npm pack` builds `lib/` automatically. The manual **Deploy new release** GitHub Actions workflow publishes the tested package from `main` using the existing npm secret, then creates a GitHub release at that same commit. Bump the version and merge passing changes before running it.
 
 ## Contributing
 
