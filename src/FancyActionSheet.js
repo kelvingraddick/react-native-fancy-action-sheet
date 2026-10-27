@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
-import { Image, Modal, Pressable, View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Image, Modal, Pressable, ScrollView, View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const FancyActionSheet = ({ isVisible, settings, hide, clearSettings }) => {
   const {
@@ -25,31 +26,40 @@ const FancyActionSheet = ({ isVisible, settings, hide, clearSettings }) => {
       transparent={true}
       visible={isVisible}
       animationType="fade"
+      supportedOrientations={['portrait', 'portrait-upside-down', 'landscape-left', 'landscape-right']}
+      onRequestClose={onClosePress}
     >
-      <View style={[styles.overlay, { ...overlayStyle }]}>
-        <TouchableWithoutFeedback onPress={onClosePress}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
-        <View style={[styles.sheetView, { ...sheetStyle }]}>
-          { title && <Text style={[styles.titleText, { ...titleTextStyle }]}>{title}</Text> }
-          { message && <Text style={[styles.messageText, { ...messageTextStyle }]}>{message}</Text> }
-          <View style={[styles.optionButtonsView]}>
-            {options.map((option) => {
-              const isDestructiveOption = destructiveOptionId == option.id;
-              return (
-                <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { hide(); await onOptionPress(option); clearSettings(); }} accessibilityLabel={option.name}>
-                  <Text style={[(isDestructiveOption ? styles.destructiveButtonText : styles.optionButtonText), { ...(isDestructiveOption ? destructiveOptionButtonTextStyle : optionButtonTextStyle) }]}>{option.name}</Text>
-                </Pressable>);
-            })}
-          </View>
-          <TouchableOpacity style={[styles.closeButton, { ...closeButtonStyle }]} onPress={onClosePress} accessibilityLabel='Close action menu'>
-            <Image source={require('../assets/images/x.png')} style={[styles.closeButtonIcon, { ...closeButtonIconStyle }]} tintColor={closeButtonIconStyle?.color ?? '#353535'} />
-          </TouchableOpacity>
+      <SafeAreaProvider style={styles.modal}>
+        <View style={[styles.overlay, { ...overlayStyle }]}>
+          <TouchableWithoutFeedback onPress={onClosePress}><View style={{ flex: 1, }} /></TouchableWithoutFeedback>
+          <SafeAreaView edges={['top', 'left', 'right', 'bottom']} style={[styles.sheetView, { ...sheetStyle }, styles.sheetBounds]}>
+            <ScrollView style={styles.optionsScroll} keyboardShouldPersistTaps="handled">
+              { title && <Text style={[styles.titleText, { ...titleTextStyle }]}>{title}</Text> }
+              { message && <Text style={[styles.messageText, { ...messageTextStyle }]}>{message}</Text> }
+              <View style={[styles.optionButtonsView]}>
+                {options.map((option) => {
+                  const isDestructiveOption = destructiveOptionId == option.id;
+                  return (
+                    <Pressable key={option.id} style={[styles.optionButton, { ...(isDestructiveOption ? destructiveOptionButtonStyle : optionButtonStyle) }]} onPress={async () => { hide(); await onOptionPress(option); clearSettings(); }} accessibilityLabel={option.name}>
+                      <Text style={[(isDestructiveOption ? styles.destructiveButtonText : styles.optionButtonText), { ...(isDestructiveOption ? destructiveOptionButtonTextStyle : optionButtonTextStyle) }]}>{option.name}</Text>
+                    </Pressable>);
+                })}
+              </View>
+            </ScrollView>
+            <TouchableOpacity style={[styles.closeButton, { ...closeButtonStyle }]} onPress={onClosePress} accessibilityLabel='Close action menu'>
+              <Image source={require('../assets/images/x.png')} style={[styles.closeButtonIcon, { ...closeButtonIconStyle }]} tintColor={closeButtonIconStyle?.color ?? '#353535'} />
+            </TouchableOpacity>
+          </SafeAreaView>
         </View>
-      </View>
+      </SafeAreaProvider>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  modal: {
+    flex: 1,
+  },
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -60,6 +70,15 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     padding: 25,
+  },
+  sheetBounds: {
+    flexShrink: 1,
+    maxHeight: '100%',
+  },
+  optionsScroll: {
+    flexGrow: 0,
+    flexShrink: 1,
+    marginBottom: 16,
   },
   titleText: {
     marginTop: 5,
@@ -81,7 +100,9 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     borderRadius: 10,
-    padding: 15,
+    minHeight: 44,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     marginBottom: 10,
     justifyContent: 'center',
     alignContent: 'center',
@@ -99,10 +120,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   closeButton: {
-    height: 40,
-    width: 40,
-    marginBottom: 15,
-    borderRadius: 20,
+    height: 44,
+    width: 44,
+    flexShrink: 0,
+    borderRadius: 22,
     justifyContent: 'center',
     alignContent: 'center',
     alignSelf: 'center',
@@ -183,3 +204,5 @@ export const useFancyActionSheet = () => {
   }
   return context;
 };
+
+export default FancyActionSheet;
